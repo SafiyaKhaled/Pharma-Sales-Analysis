@@ -1,5 +1,5 @@
 
--- SQL Data Analysis Project – Pharmaceutical Sales Dataset
+-- SQL Data Analysis Project â€“ Pharmaceutical Sales Dataset
 -- Author: Safiya
 -- Objective: Analyze pharma sales data, clean it, and extract key business insights using SQL Server
 -- using 250000 row from the data
@@ -123,7 +123,8 @@ order by year;
 
 select * from pharma
 
-select year, count(distinct Customer_Name)
+select year, 
+	count(distinct Customer_Name)
 from pharma
 group by year
 order by year
@@ -141,22 +142,26 @@ group by year
 order by year
 
 -- new customers in 2018
-select Customer_Name, min(year) As first_year
+select Customer_Name, 
+	min(year) As first_year
 from pharma
 group by customer_name
 having min(year)= '2018'
 
 -- ensuring the new customers are in 2018 only 
-select first_year as year, count(distinct customer_name) as new_customers
+select first_year as year, 
+	count(distinct customer_name) as new_customers
 from(
-select Customer_Name, min(year) As first_year
-from pharma
-group by customer_name) as first_appearance
+	select Customer_Name, 
+		min(year) As first_year
+	from pharma
+	group by customer_name) as first_appearance
 group by first_year
 order by first_year
 
 -- new customers exists in any country
-select Customer_Name,country, Channel, Sub_channel
+select Customer_Name,country, 
+	Channel, Sub_channel
 from pharma 
 group by customer_name, country, Channel, sub_channel
 having min(year)= '2018' and max(year)= '2018'
